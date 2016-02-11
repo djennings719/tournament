@@ -158,19 +158,27 @@ def swiss_pairings():
         id2: the second player's unique id
         name2: the second player's name
     """
+    # pull the current standings
     current_standings = player_standings()
+
+    # zip on the returned pairings
     zipped_pairings = zip(current_standings)
 
+    # pairings will contain our unfiltered list of paired players for the next round
     pairings = []
 
-    for i in range(0, len(zipped_pairings), 2):
+    # counting by 2 we loop over number of players in tournament using the slash in order to make our pairs
+    for i in range(0, count_players(), 2):
         pairings.append(zipped_pairings[i:i + 2])
 
+    # return_pairings will contain our list to return
     return_pairings = []
+
+    # loop over all pairings
     for i in range(0, len(pairings), 1):
-        return_pairings.append((pairings[i][0][0][0],
-                                pairings[i][0][0][1],
-                                pairings[i][1][0][0],
-                                pairings[i][1][0][1],))
+        return_pairings.append((pairings[i][0][0][0],  # player1 id
+                                pairings[i][0][0][1],  # player1 name
+                                pairings[i][1][0][0],  # player2 id
+                                pairings[i][1][0][1],))  # player2 name
 
     return return_pairings
